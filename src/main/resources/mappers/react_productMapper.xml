@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="react.oracle.ict03.dao.RecordMapper" >
+	
+	<!-- 목록 -->
+	<select id="recordList" resultType="react.oracle.ict03.dto.RecordDTO">
+		SELECT * FROM MVC_RECORD_TBL
+		ORDER BY regdate DESC
+	</select>
+	
+	<!-- 삽입 -->
+	<insert id="insertRecord" parameterType="react.oracle.ict03.dto.RecordDTO">
+		INSERT INTO MVC_RECORD_TBL (name, win, lose, draw, winrate)
+		 	VALUES(#{name}, #{win}, #{lose}, #{draw}, #{winrate})
+	</insert>
+	
+	<!-- 검색 -->
+	<select id="selectRecord" parameterType="String" resultType="react.oracle.ict03.dto.RecordDTO">
+		SELECT * FROM MVC_RECORD_TBL
+		WHERE name = #{name}
+	</select>
+	
+	<!-- 수정 -->
+   <update id="updateRecord" parameterType="react.oracle.ict03.dto.RecordDTO">
+      UPDATE MVC_RECORD_TBL
+            SET name = #{name}, 
+            	win = #{win}, 
+            	lose = #{lose}, 
+            	draw = #{draw}, 
+            	winrate = #{winrate}, 
+            	regdate = sysdate
+       WHERE name=#{name}
+   </update>
+   
+   <!-- 삭제 -->
+   <delete id="deleteRecord" parameterType="String">
+      DELETE FROM MVC_RECORD_TBL
+       WHERE name=#{name}
+   </delete>
+</mapper>
